@@ -20,8 +20,8 @@ class PeopleController {
             flash.message = message(code: 'default.search.result.label', args: peoples.searchResultSize)
             [ searchCategory:params.searchCategory,
               searchKeyword: params.searchable ,
-              clientInstanceList: peoples.searchResults ,
-              clientInstanceTotal: peoples.searchResultSize]
+              peopleInstanceList: peoples.searchResults ,
+              peopleInstanceTotal: peoples.searchResultSize]
         }
     }
 
