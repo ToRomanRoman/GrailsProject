@@ -1,0 +1,135 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 1114112 bytes for offset table expansion
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (blockOffsetTable.cpp:83), pid=23388, tid=25796
+#
+# JRE version:  (8.0_11-b12) (build )
+# Java VM: Java HotSpot(TM) Client VM (25.11-b03 mixed mode, sharing windows-x86 )
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0154d800):  JavaThread "Unknown thread" [_thread_in_vm, id=25796, stack(0x01750000,0x017a0000)]
+
+Stack: [0x01750000,0x017a0000],  sp=0x0179f5dc,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x19231b]
+V  [jvm.dll+0x18b438]
+V  [jvm.dll+0x84055]
+V  [jvm.dll+0x845b5]
+V  [jvm.dll+0x8e838]
+V  [jvm.dll+0x998bd]
+V  [jvm.dll+0x8ebe9]
+V  [jvm.dll+0x8d68b]
+V  [jvm.dll+0x9b886]
+V  [jvm.dll+0x140ac4]
+V  [jvm.dll+0x164898]
+V  [jvm.dll+0xd8d11]
+C  [java.exe+0x13c1]
+C  [java.exe+0x1e78]
+C  [java.exe+0xab81]
+C  [java.exe+0xac0b]
+C  [kernel32.dll+0x4ed5c]
+C  [ntdll.dll+0x637eb]
+C  [ntdll.dll+0x637be]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0154d800 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=25796, stack(0x01750000,0x017a0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x01330000 - 0x01360000 	C:\Java\jdk1.8.0_11\bin\java.exe
+0x76e20000 - 0x76f5c000 	C:\Windows\SYSTEM32\ntdll.dll
+0x762f0000 - 0x763c4000 	C:\Windows\system32\kernel32.dll
+0x75200000 - 0x7524b000 	C:\Windows\system32\KERNELBASE.dll
+0x753a0000 - 0x75440000 	C:\Windows\system32\ADVAPI32.dll
+0x76090000 - 0x7613c000 	C:\Windows\system32\msvcrt.dll
+0x76680000 - 0x76699000 	C:\Windows\SYSTEM32\sechost.dll
+0x76b00000 - 0x76ba2000 	C:\Windows\system32\RPCRT4.dll
+0x76f80000 - 0x77049000 	C:\Windows\system32\USER32.dll
+0x76970000 - 0x769be000 	C:\Windows\system32\GDI32.dll
+0x76670000 - 0x7667a000 	C:\Windows\system32\LPK.dll
+0x75270000 - 0x7530d000 	C:\Windows\system32\USP10.dll
+0x73f40000 - 0x740de000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.17514_none_41e6975e2bd6f2b2\COMCTL32.dll
+0x76190000 - 0x761e7000 	C:\Windows\system32\SHLWAPI.dll
+0x76650000 - 0x7666f000 	C:\Windows\system32\IMM32.DLL
+0x766a0000 - 0x7676c000 	C:\Windows\system32\MSCTF.dll
+0x74f40000 - 0x74f62000 	C:\PROGRA~3\VKSaver\vksaver3.dll
+0x50ca0000 - 0x50d5f000 	C:\Java\jdk1.8.0_11\jre\bin\msvcr100.dll
+0x6d1d0000 - 0x6d567000 	C:\Java\jdk1.8.0_11\jre\bin\client\jvm.dll
+0x73200000 - 0x73207000 	C:\Windows\system32\WSOCK32.dll
+0x763d0000 - 0x76405000 	C:\Windows\system32\WS2_32.dll
+0x76f60000 - 0x76f66000 	C:\Windows\system32\NSI.dll
+0x74590000 - 0x745c2000 	C:\Windows\system32\WINMM.dll
+0x76410000 - 0x76415000 	C:\Windows\system32\PSAPI.DLL
+0x693f0000 - 0x693fc000 	C:\Java\jdk1.8.0_11\jre\bin\verify.dll
+0x68ec0000 - 0x68ee1000 	C:\Java\jdk1.8.0_11\jre\bin\java.dll
+0x68ea0000 - 0x68eb3000 	C:\Java\jdk1.8.0_11\jre\bin\zip.dll
+0x64910000 - 0x649fb000 	C:\Windows\system32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Dgrails.home=C:\Groovy\grails-2.4.3 -Dbase.dir=C:\Workspace\Project -Dtools.jar=C:\Java\jdk1.8.0_11\lib\tools.jar -Dgroovy.starter.conf=C:\Groovy\grails-2.4.3/conf/groovy-starter.conf -Xmx768M -Xms768M -XX:MaxPermSize=256m -XX:PermSize=256m -Djline.WindowsTerminal.directConsole=false -Dfile.encoding=UTF-8 
+java_command: org.codehaus.groovy.grails.cli.support.GrailsStarter --main org.codehaus.groovy.grails.cli.GrailsScriptRunner --conf C:\Groovy\grails-2.4.3/conf/groovy-starter.conf idea-print-project-settings
+java_class_path (initial): C:\Groovy\grails-2.4.3\lib\org.codehaus.groovy\groovy-all\jars\groovy-all-2.3.6.jar;C:\Groovy\grails-2.4.3\dist\grails-bootstrap-2.4.3.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Java\jdk1.8.0_11
+JRE_HOME=C:\Java
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\MySQL\MySQL Utilities 1.3.6\;C:\Java\jdk1.8.0_11\bin;C:\Program Files\Groovy\Groovy-1.7.2\bin;C:\Groovy\grails-2.4.3\bin
+USERNAME=rom
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 16 Model 6 Stepping 3, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7601 Service Pack 1
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 16 model 6 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, popcnt, mmxext, 3dnowpref, lzcnt, tsc, tscinvbit
+
+Memory: 4k page, physical 2094928k(230208k free), swap 5540712k(718764k free)
+
+vm_info: Java HotSpot(TM) Client VM (25.11-b03) for windows-x86 JRE (1.8.0_11-b12), built on Jun 16 2014 18:18:58 by "java_re" with MS VC++ 10.0 (VS2010)
+
+time: Mon Nov 03 00:19:54 2014
+elapsed time: 0 seconds
+
