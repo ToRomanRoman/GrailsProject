@@ -6,25 +6,56 @@ import grails.transaction.Transactional
 
 @Transactional
 class PeopleController {
-
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        if(!params.searchable){
-            flash.message = ""
-            [ searchCategory:"",
-              searchKeyword:"",
-              peopleInstanceList: People.list(params),
-              peopleInstanceTotal: People.count()]
-        }else{
-            def peoples = peopleService.searchPeoplesByFilters(params)
-            flash.message = message(code: 'default.search.result.label', args: peoples.searchResultSize)
-            [ searchCategory:params.searchCategory,
-              searchKeyword: params.searchable ,
-              peopleInstanceList: peoples.searchResults ,
-              peopleInstanceTotal: peoples.searchResultSize]
+    @Transactional
+    def search() {
+        String text = params.textsearch
+        List allpip = People.findAll()
+        List<People> our = new ArrayList<People>()
+        switch (params.select) {
+            case 'name':
+                for (People p : allpip) {
+                    if (p.name.find(text)) {
+                        our.add(p)
+                    }
+                }
+                break
+            case 'email':
+                for (People p : allpip) {
+                    if (p.email.find(text)) {
+                        our.add(p)
+                    }
+                }
+                break
+            case 'adress':
+                for (People p : allpip) {
+                    if (p.adress.find(text)) {
+                        our.add(p)
+                    }
+                }
+                break
+            default:
+                println "error"
         }
+        render sortList(our)
     }
 
+
+    @Transactional
+    def renderString() {
+        String[] cs = params.textcsv.split(',')
+        StringBuilder st = new StringBuilder();
+        int count = 0
+        if (cs.length % 3 == 0) {
+            for (int i = 0; i < cs.length; i += 3) {
+                new People(name: cs[i], email: cs[i + 1], adress: cs[i + 2]).save()
+                count++
+            }
+        }
+        render sortList(People.findAll())
+    }
+
+    //Whithout ajax
+    @Deprecated
     @Transactional
     def imports() {
 
@@ -37,10 +68,17 @@ class PeopleController {
             }
         }
         flash.messages = message(code: 'default.message.import', args: [message(code: 'people.label', default: 'People'), count])
-        session.peopleInstanceList=People.findAll()
-        respond  model: [peopleInstanceCount: People.count()]
+        session.peopleInstanceList = People.findAll()
+        respond model: [peopleInstanceCount: People.count()]
     }
 
+    private String sortList(List peoples) {
+        StringBuilder st = new StringBuilder();
+        for (People p : peoples) {
+            st.append(" <tr class=\"even\"><td><a href=\"http://localhost:8080/Project/people/show/\"" + p.id + "\">" + p.name + "</a></td> <td>" + p.email + " </td><td>" + p.adress + "</td></tr>")
+        }
+        return st.toString()
+    }
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -135,4 +173,6 @@ class PeopleController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+
 }

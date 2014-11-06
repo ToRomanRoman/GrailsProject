@@ -66,6 +66,7 @@ grails.project.dependency.resolution = {
         compile ":csv:0.3.1"
         compile ":quick-search:0.3.2"
 
+
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.17"
         runtime ":database-migration:1.4.0"

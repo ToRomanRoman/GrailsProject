@@ -6,6 +6,7 @@
     <g:set var="entityName" value="${message(code: 'people.label', default: 'People')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
     <g:javascript library="jquery_1.11.1"/>
+    <script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
 
 </head>
 
@@ -18,30 +19,28 @@
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="[entityName]"/></g:link></li>
-        <li><g:form method="post" enctype="multipart/form-data">
-            <input name="data" type="file"><br>
-            <fieldset class="buttons">
-                <g:submitToRemote url="[controller: 'people', action: 'imports']" update="peoples" value="imports"/>
-            </fieldset>
-        </g:form></li>
 
-        <li><div class="search-bar">
-            <g:form>
-                <div class="list-label"><g:message code="default.list.label" args="[entityName]"/></div>
-                Filter by:
-                <g:select name="searchCategory"
-                          from="${com.auth.People$SearchCategories?.values()}"
-                          keys="${com.auth.People$SearchCategories.values()*.name()}"
-                          required="" value="${searchCategory}"/>
-                <input type="search" name="searchable" value="${searchKeyword}"/>
-                <g:actionSubmit action="list" value="Search"/>
-            </g:form>
-        </div>
+
+        <li><g:formRemote method="post" name="subForm" url="[controller: 'people', action: 'renderString']"
+                          update="mainContent">
+            copy your CSV in this area
+            <g:textField name="textcsv" type="text"/>
+            <g:submitButton name="Import"/>
+        </g:formRemote>
+        </li>
+        <li><g:formRemote method="post" name="search" url="[controller: 'people', action: 'search']" update="mainContent">
+               <select name="select" size="1" ><option selected value="name">By Name</option><option  value="email">By Email</option><option value="adress">By Adress</option></select>
+                 <g:textField name="textsearch" type="text"/>
+            <g:submitButton name="Search"/>
+        </g:formRemote>
         </li>
 
-
         <li>${flash.messages}</li>
+        <li><div class="search-bar">
+
+        </div></li>
     </ul>
+
 </div>
 
 <div id="list-people" class="content scaffold-list" role="main">
@@ -60,12 +59,21 @@
             <g:sortableColumn property="adress" title="${message(code: 'people.adress.label', default: 'Adress')}"/>
 
         </tr>
-        </thead>
-        <tbody>
 
-        <div id="peoples">
-            <g:render template="/people/peopleList"/>
-        </div>
+        </thead>
+        <tbody id="mainContent">
+        <g:each in="${peopleInstanceList}" status="i" var="peopleInstance">
+            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                <td><g:link action="show"
+                            id="${peopleInstance.id}">${fieldValue(bean: peopleInstance, field: "name")}</g:link></td>
+
+                <td>${fieldValue(bean: peopleInstance, field: "email")}</td>
+
+                <td>${fieldValue(bean: peopleInstance, field: "adress")}</td>
+
+            </tr>
+        </g:each>
 
         </tbody>
     </table>

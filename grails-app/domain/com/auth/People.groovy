@@ -12,6 +12,6 @@ class People {
         adress(blank: false)
     }
     enum SearchCategories{
-        name("name"), email("email"), adress("adress")
+        name("Name"), email("Email"), adress("Adress")
     }
 }
