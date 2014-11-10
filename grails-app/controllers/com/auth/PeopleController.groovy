@@ -1,11 +1,28 @@
 package com.auth
 
+import grails.converters.JSON
+import org.apache.commons.fileupload.FileItem
+import org.apache.commons.io.IOUtils
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional
 class PeopleController {
+
+    def uploadImage = {
+             params.fileToUpload.getInputStream().eachCsvLine { tokens ->
+           for (int i = 0; i < tokens.length; i += 3) {
+               if (new People(name: tokens[i], email: tokens[i + 1], adress: tokens[i + 2]).save()) {
+                   ++count
+               }
+           }
+       }
+            render 'Why i can not hear server!'
+    }
+
+
     @Transactional
     def search() {
         String text = params.textsearch

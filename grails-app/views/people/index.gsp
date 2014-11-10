@@ -6,11 +6,41 @@
     <g:set var="entityName" value="${message(code: 'people.label', default: 'People')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
     <g:javascript library="jquery_1.11.1"/>
+    <g:javascript library="ajaxfileupload"/>
     <script type="text/javascript" src="http://scriptjava.net/source/scriptjava/scriptjava.js"></script>
 
+    <script type="text/javascript">
+        function ajaxFileUpload() {
+            $.ajaxFileUpload
+            (
+                    {
+                        url: "${createLink(controller: 'people', action: 'uploadImage')}",
+                        secureuri: false,
+                        fileElementId: 'fileToUpload',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $("#loading").show();
+                        },
+                        complete: function () {
+                            $("#loading").hide();
+                        },
+                        success: function (data) {
+                            document.getElementByID('#mainContent').innnerHTML = data
+                        },
+                        error: function (data, status, e) {
+                            alert(e);
+                        }
+                    }
+            )
+
+            return false;
+
+        }
+    </script>
 </head>
 
 <body>
+
 <a href="#list-people" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
                                                              default="Skip to content&hellip;"/></a>
 
@@ -28,11 +58,23 @@
             <g:submitButton name="Import"/>
         </g:formRemote>
         </li>
-        <li><g:formRemote method="post" name="search" url="[controller: 'people', action: 'search']" update="mainContent">
-               <select name="select" size="1" ><option selected value="name">By Name</option><option  value="email">By Email</option><option value="adress">By Adress</option></select>
-                 <g:textField name="textsearch" type="text"/>
+        <li><g:formRemote method="post" name="search" url="[controller: 'people', action: 'search']"
+                          update="mainContent">
+            <select name="select" size="1"><option selected value="name">By Name</option><option
+                    value="email">By Email</option><option value="adress">By Adress</option></select>
+            <g:textField name="textsearch" type="text"/>
             <g:submitButton name="Search"/>
         </g:formRemote>
+        </li>
+        <li>
+          Don't work //
+            <g:formRemote name="form" method="POST" enctype="multipart/form-data"
+                          url="[controller: 'people', action: 'uploadImage']" update="mainContent">
+                <input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input"><button class="button"
+                                                                                                         id="buttonUpload"
+                                                                                                         onclick="return ajaxFileUpload();">Upload</button>
+
+            </g:formRemote> //
         </li>
 
         <li>${flash.messages}</li>
@@ -42,6 +84,7 @@
     </ul>
 
 </div>
+
 
 <div id="list-people" class="content scaffold-list" role="main">
     <h1><g:message code="default.list.label" args="[entityName]"/></h1>
